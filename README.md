@@ -1,11 +1,11 @@
-# ➕➖✖️➗ExpressionConverter
+# 🧮ExpressionConverter
 
 A **C++ program** for converting between **Infix**, **Postfix**, and **Prefix** expressions using a custom **Stack** data structure.  
 This project was created for educational purposes — particularly for practicing stack operations and expression parsing in Data Structures courses.
 
 ---
 
-## About the Project
+## 🗒️About the Project
 
 This program takes a mathematical expression as input and automatically detects its type  
 (**infix**, **prefix**, or **postfix**).  
@@ -17,7 +17,7 @@ operator precedence and associativity rules.
 
 ---
 
-## How to Run
+## ⚙️How to Run
 
 ### 1. Compile
 Use the following command to compile the program:
@@ -27,7 +27,7 @@ g++ main.cpp -o converter
 
 ---
 
-## Example Usage
+## 🧮Example Usage
 
 ### example 1
 #### input
@@ -46,7 +46,7 @@ Do you want convert to infix or postfix? infix
 
 ---
 
-## Features
+## ⚡️Features
 
 - Automatically detects expression type (infix, prefix, postfix)
 - Checks parentheses validity
@@ -56,7 +56,7 @@ Do you want convert to infix or postfix? infix
 
 ---
 
-## Used Libraries
+## 📚Used Libraries
 
 ```cpp
 #include <iostream>
@@ -66,14 +66,14 @@ Do you want convert to infix or postfix? infix
 
 ---
 
-## Author
+## 🧑🏻‍💻Author
 
 Mani Arab
 2025 — All rights reserved.
 
 ---
 
-## License
+## ⚖️License
 
 This project is licensed under the [MIT License](./LICENSE).  
 You are free to use, modify, and share this code for educational and learning purposes.
