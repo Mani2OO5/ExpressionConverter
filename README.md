@@ -1,4 +1,4 @@
-# ExpressionConverter
+# ➕➖✖️➗ExpressionConverter
 
 A **C++ program** for converting between **Infix**, **Postfix**, and **Prefix** expressions using a custom **Stack** data structure.  
 This project was created for educational purposes — particularly for practicing stack operations and expression parsing in Data Structures courses.
