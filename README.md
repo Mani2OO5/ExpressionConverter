@@ -48,11 +48,11 @@ Do you want convert to infix or postfix? infix
 
 ## ⚡️Features
 
-- Automatically detects expression type (infix, prefix, postfix)
-- Checks parentheses validity
-- Converts between all three notations
-- Uses a custom Stack class implementation
-- Simple, interactive text-based interface
+- 🧠Automatically detects expression type (infix, prefix, postfix)
+- ✅Checks parentheses validity
+- 🔄Converts between all three notations
+- 🥞Uses a custom Stack class implementation
+- 📝Simple, interactive text-based interface
 
 ---
 
