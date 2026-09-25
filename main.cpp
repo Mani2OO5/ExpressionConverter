@@ -1,11 +1,15 @@
 // Copyright 2025 'mani arab'
+
 #include <iostream>
 #include <string>
 #include <algorithm>
-using namespace std;
+using std::cin;
+using std::cout;
+using std::endl;
+using std::getline;
+using std::string;
 
-class Stack
-{
+class Stack{
  private:
   static const int MaxSize = 100;
   string Data[MaxSize];
@@ -14,29 +18,23 @@ class Stack
  public:
   Stack() : TopIndex(-1) {}
 
-  bool empty()
-  {
+  bool empty() {
     return TopIndex == -1;
   }
-  bool full()
-  {
+  bool full() {
     return TopIndex == MaxSize - 1;
   }
 
-  void push(string value)
-  {
-    if (full())
-    {
+  void push(string value) {
+    if (full()) {
       cout << "StackOverFlow";
       return;
     }
     TopIndex++;
     Data[TopIndex] = value;
   }
-  string pop()
-  {
-    if (empty())
-    {
+  string pop() {
+    if (empty()) {
       cout << "Stack is empty" << endl;
       return "";
     }
@@ -45,27 +43,22 @@ class Stack
     TopIndex--;
     return Item;
   }
-  string TOS()
-  {
+  string TOS() {
     return Data[TopIndex];
   }
 };
-bool isOperator(char Input)
-{
+bool isOperator(char Input) {
   static const char Operators[7] = {'+', '-', '*', '/', '^', '(', ')'};
 
-  for (int i = 0; i < 5; i++)
-  {
-    if (Operators[i] == Input)
-    {
+  for (int i = 0; i < 5; i++) {
+    if (Operators[i] == Input) {
       return true;
     }
   }
   return false;
 }
 
-int Op_Weight(string Op)
-{
+int Op_Weight(string Op) {
   if (Op == "-" || Op == "+")
     return 1;
   if (Op == "*" || Op == "/")
@@ -74,12 +67,10 @@ int Op_Weight(string Op)
     return 3;
 }
 
-bool Input_Check(string Input)
-{
+bool Input_Check(string Input) {
   int Operator_Counter = 0;
   int Operand_Counter = 0;
-  for (int i = 0; i < Input.length(); i++)
-  {
+  for (int i = 0; i < Input.length(); i++) {
     if (isOperator(Input[i]))
       Operator_Counter++;
     else
@@ -87,63 +78,45 @@ bool Input_Check(string Input)
   }
   return (Operator_Counter >= Operand_Counter);
 }
-
-string Etype(string Input)
-{
+string Etype(string Input) {
   bool prefix = false;
   bool postfix = false;
   int counter = 0;
 
   int InputSize = Input.length();
 
-  if (isOperator(Input[0]))
-  {
+  if (isOperator(Input[0])) {
     prefix = true;
   }
 
-  if ((isOperator(Input[InputSize - 1])))
-  {
+  if ((isOperator(Input[InputSize - 1]))) {
     postfix = true;
   }
 
-  for (int i = 0; i < InputSize; i++)
-  {
-    if (isOperator(Input[i]))
-    {
+  for (int i = 0; i < InputSize; i++) {
+    if (isOperator(Input[i])) {
       counter++;
     }
   }
-
-  if (counter == 0)
-  {
+  if (counter == 0) {
     return Input;
   }
-
-  if ((prefix && postfix) || Input_Check(Input))
-  {
+  if ((prefix && postfix) || Input_Check(Input)) {
     return "wrong input";
   }
-
-  if (prefix)
-  {
+  if (prefix) {
     return "prefix";
   }
-  if (postfix)
-  {
+  if (postfix) {
     return "postfix";
   }
-
   return "infix";
 }
-
-bool Parenthesis_check(string &expression)
-{
-  if (Etype(expression) == "infix")
-  {
+bool Parenthesis_check(string &expression) {
+  if (Etype(expression) == "infix") {
     int check_value = 0;
 
-    for (int i = 0; i < expression.length(); i++)
-    {
+    for (int i = 0; i < expression.length(); i++) {
       if (expression[i] == '(')
         check_value++;
       if (expression[i] == ')')
@@ -151,61 +124,39 @@ bool Parenthesis_check(string &expression)
       if (check_value < 0)
         return false;
 
-      if (expression[i] == '(')
-      {
+      if (expression[i] == '(') {
         if (i + 1 < expression.length() && expression[i + 1] == ')')
           return false;
       }
     }
-
     if (check_value == 0)
       return true;
-  }
-  else
-  {
-    for (int i = 0; i < expression.length(); i++)
-    {
+  } else {
+    for (int i = 0; i < expression.length(); i++) {
       if (expression[i] == '(' || expression[i] == ')')
-      {
         return false;
-      }
-      else
-      {
-        return true;
-      }
-
     }
   }
 }
-string converter(string Input, string expression)
-{
+string converter(string Input, string expression) {
   string Answer;
   string FinalExpr;
   int expression_Size = expression.length();
   Stack Stack;
   string Converted_Expr = "";
-
   if (expression_Size < 3)
     return "";
-
-  if (Input == "prefix")
-  {
+  if (Input == "prefix") {
     cout << "Do you want convert to infix or postfix? ";
     getline(cin, Answer);
-
-    if (Answer == "infix")
-    {
-      for (int i = expression_Size - 1; i >= 0; i--)
-      {
+    if (Answer == "infix") {
+      for (int i = expression_Size - 1; i >= 0; i--) {
         char currentChar = expression[i];
 
-        if (!isOperator(currentChar))
-        {
+        if (!isOperator(currentChar)) {
           string operand(1, currentChar);
           Stack.push((operand));
-        }
-        else
-        {
+        } else {
           string operand1 = Stack.pop();
           string operand2 = Stack.pop();
 
@@ -216,20 +167,14 @@ string converter(string Input, string expression)
       }
       FinalExpr = Stack.pop();
       return FinalExpr;
-    }
-    else if (Answer == "postfix")
-    {
-      for (int i = expression_Size - 1; i >= 0; i--)
-      {
+    } else if (Answer == "postfix") {
+      for (int i = expression_Size - 1; i >= 0; i--) {
         char currentChar = expression[i];
 
-        if (!isOperator(currentChar))
-        {
+        if (!isOperator(currentChar)) {
           string operand(1, currentChar);
           Stack.push((operand));
-        }
-        else
-        {
+        } else {
           string operand1 = Stack.pop();
           string operand2 = Stack.pop();
 
@@ -240,61 +185,40 @@ string converter(string Input, string expression)
       }
       FinalExpr = Stack.pop();
       return FinalExpr;
-    }
-    else
-    {
+    } else {
       return "Cannot convert";
       cout << "Cannot Convert";
     }
-  }
-  else if (Input == "infix")
-  {
+  } else if (Input == "infix") {
     cout << "Do you want convert to prefix or postfix? ";
     getline(cin, Answer);
-
-    if (Answer == "prefix")
-    {
+    if (Answer == "prefix") {
       reverse(expression.begin(), expression.end());
 
-      for (int i = 0; i < expression_Size; i++)
-      {
+      for (int i = 0; i < expression_Size; i++) {
         if (expression[i] == '(')
           expression[i] = ')';
         else if (expression[i] == ')')
           expression[i] = '(';
       }
-
-      for (int i = 0; i < expression_Size; i++)
-      {
+      for (int i = 0; i < expression_Size; i++) {
         char currentChar = expression[i];
-
         if (!isOperator(currentChar) &&
-            currentChar != '(' && currentChar != ')')
-        {
+            currentChar != '(' && currentChar != ')') {
           string operand(1, currentChar);
           Converted_Expr += operand;
-        }
-        else
-        {
-          if (currentChar == '(')
-          {
+        } else {
+          if (currentChar == '(') {
             Stack.push("(");
-          }
-          else if (currentChar == ')')
-          {
-            while (Stack.TOS() != "(")
-            {
+          } else if (currentChar == ')') {
+            while (Stack.TOS() != "(") {
               Converted_Expr += Stack.pop();
             }
             Stack.pop();
-          }
-          else
-          {
+          } else {
             string operation(1, currentChar);
-
             while (!Stack.empty() &&
-                   Op_Weight(operation) < Op_Weight(Stack.TOS()))
-            {
+                   Op_Weight(operation) < Op_Weight(Stack.TOS())) {
               Converted_Expr += Stack.pop();
             }
             Stack.push(operation);
@@ -302,81 +226,55 @@ string converter(string Input, string expression)
         }
       }
 
-      while (!Stack.empty())
-      {
+      while (!Stack.empty()) {
         Converted_Expr += Stack.pop();
       }
       reverse(Converted_Expr.begin(), Converted_Expr.end());
       return Converted_Expr;
-    }
-    else if (Answer == "postfix")
-    {
-      for (int i = 0; i < expression_Size; i++)
-      {
+    } else if (Answer == "postfix") {
+      for (int i = 0; i < expression_Size; i++) {
         char currentChar = expression[i];
         if (!isOperator(currentChar) && currentChar != '(' &&
-            currentChar != ')')
-        {
+            currentChar != ')') {
           string operand(1, currentChar);
           Converted_Expr += operand;
-        }
-
-        else
-        {
-          if (currentChar == '(')
-          {
+        } else {
+          if (currentChar == '(') {
             Stack.push("(");
-          }
-          else if (currentChar == ')')
-          {
-            while (Stack.TOS() != "(")
-            {
+          } else if (currentChar == ')') {
+            while (Stack.TOS() != "(") {
               Converted_Expr += Stack.pop();
             }
             Stack.pop();
-          }
-          else
-          {
+          } else {
             string operation(1, currentChar);
-
             while (!Stack.empty() &&
-                   Op_Weight(operation) <= Op_Weight(Stack.TOS()))
-            {
+                   Op_Weight(operation) <= Op_Weight(Stack.TOS())) {
               Converted_Expr += Stack.pop();
             }
             Stack.push(operation);
           }
         }
       }
-      while (!Stack.empty())
-      {
+      while (!Stack.empty()) {
         Converted_Expr += Stack.pop();
       }
       return Converted_Expr;
-    }
-    else
-    {
+    } else {
       return "Cannot convert";
       cout << "Cannot Convert";
     }
-  }
-  else if (Input == "postfix")
-  {
+  } else if (Input == "postfix") {
     cout << "Do you want convert to infix or prefix? ";
     getline(cin, Answer);
 
-    if (Answer == "infix")
-    {
-      for (int i = 0; i < expression_Size; i++)
-      {
+    if (Answer == "infix") {
+      for (int i = 0; i < expression_Size; i++) {
         char currentChar = expression[i];
-        if (!isOperator(currentChar))
-        {
+        if (!isOperator(currentChar)) {
           string operand(1, currentChar);
           Stack.push((operand));
-        }
-        else
-        {
+        } else {
           string operand2 = Stack.pop();
           string operand1 = Stack.pop();
 
@@ -387,20 +285,14 @@ string converter(string Input, string expression)
       }
       FinalExpr = Stack.pop();
       return FinalExpr;
-    }
-    else if (Answer == "prefix")
-    {
-      for (int i = 0; i < expression_Size; i++)
-      {
+    } else if (Answer == "prefix") {
+      for (int i = 0; i < expression_Size; i++) {
         char currentChar = expression[i];
 
-        if (!isOperator(currentChar))
-        {
+        if (!isOperator(currentChar)) {
           string operand(1, currentChar);
           Stack.push((operand));
-        }
-        else
-        {
+        } else {
           string operand2 = Stack.pop();
           string operand1 = Stack.pop();
 
@@ -412,24 +304,18 @@ string converter(string Input, string expression)
       FinalExpr = Stack.pop();
       return FinalExpr;
     }
-  }
-  else
-  {
+  } else {
     return "Wrong Input";
   }
 }
-
-int main()
-{
-  while (true)
-  {
+int main() {
+  while (true) {
     string Input;
     string Ans;
     cout << "insert the expression: ";
     getline(cin, Input);
 
-    if (!Parenthesis_check(Input))
-    {
+    if (!Parenthesis_check(Input)) {
       cout << "Wrong Input" << endl;
       continue;
     }
